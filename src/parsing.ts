@@ -19,6 +19,7 @@ import { basename } from "path";
 let idToPath: Record<string, string> = {};
 
 export const idResolver = (id: string) => {
+  id = id.replace(/\|[^\\\]]+$/i, "");
   const filePath = idToPath[id];
   if (filePath === undefined) {
     return [id];
