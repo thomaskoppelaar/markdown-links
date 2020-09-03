@@ -19,7 +19,8 @@ import { basename } from "path";
 let idToPath: Record<string, string> = {};
 
 export const idResolver = (id: string) => {
-  id = id.replace(/\|[^\\\]]+$/i, "");
+  id = id.replace(/ ?\|[^\\\]]+$/, "").toLowerCase(); // assuming files are lowercase, and the wiki-link separator is a "|"
+  id = id.replace(/[- ]+/g, "-"); // Makes sure that any repeating spaces get treated as a single "-"
   const filePath = idToPath[id];
   if (filePath === undefined) {
     return [id];
